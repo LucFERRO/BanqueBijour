@@ -9,16 +9,21 @@
 // document.querySelector("#firstname").textContent = user.firstname;
 
 // on stocke toutes les opérations de compte dans un array[]
-const operationsCompte = [
+let operationsCompte = [];
   // exemples
   // ["+", "salaire", 1520],
   // ["-", "achat PS4", 499.99],
   // ["-", "achat TV", 599],
-];
+
 // on déclare nos variables
 let solde = 0;
 let operator = "";
 let devise = "€";
+
+let credit = document.getElementById('detailsCredit')
+let debit = document.getElementById('detailsDebit')
+let li = document.createElement("li")
+let span = document.createElement("span")
 
 function calcul(operateur, libelle, montant) {}
 // on execute la function
@@ -27,16 +32,58 @@ function calcul(operateur, libelle, montant) {}
 // send form, add operation
 const formulaire = document.getElementById("ajoutOperation");
 formulaire.addEventListener("submit", function (e) {
-  e.preventDefault();
-  // on récupère les valeurs des champs du formulaire
+    e.preventDefault();
+    // on récupère les valeurs des champs du formulaire
+    let operateur = document.getElementById('operation').value
+    let libelle = document.getElementById('intitule').value
+    let montant = document.getElementById('montant').value
+    // console.log(result);
+    // console.log(textForm);
+    // console.log(montant);
+    // on stocke ces valeurs dans un array[]
+    let arrayOperations = [operateur,libelle,montant]
+    // on ajoute cet array dans notre array global operationsCompte
+    operationsCompte.push(arrayOperations);
 
-  // on stocke ces valeurs dans un array[]
+    // on execute la fonction pour actualiser
 
-  // on ajoute cet array dans notre array global operationsCompte
+    // if (operateur == '+'){
+    //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
+    //     credit.appendChild(li);
+    // }
+    // if (operateur == '-'){
+    //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+    //     debit.appendChild(li);
+    // }
+    
+    // if (operateur == '+'){
+    //     credit.appendChild(li).innerHTML += "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
+    // }
+    // if (operateur == '-'){
+    //     debit.appendChild(li).innerHTML += "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+    // }
 
-  // console.table(operationsCompte);
-  // on execute la fonction pour actualiser
+    // var x = document.createElement("P");                        // Create a <p> node
+    // var t = document.createTextNode("This is a paragraph.");    // Create a text node
+    // x.appendChild(t);                                           // Append the text to <p>
+    // document.body.appendChild(x);                               // Append <p> to <body>
 
-  // on reset le formulaire
-  formulaire.reset();
+    // document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("test")));
+
+    // credit.appendChild(li.span.appendChild(document.createTextNode(libelle)));
+
+
+    // if (operateur == '+'){
+    // }
+    // if (operateur == '-'){
+
+    // }
+
+    
+
+    console.log(arrayOperations);
+    console.log(operationsCompte);
+
+    // on reset le formulaire
+    formulaire.reset();
 });
