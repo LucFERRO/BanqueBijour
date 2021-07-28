@@ -79,10 +79,14 @@ formulaire.addEventListener("submit", function (e) {
 
     // }
 
-    
+
 
     console.log(arrayOperations);
     console.log(operationsCompte);
+    console.log(operationsCompte.length);
+    console.log(operationsCompte[operationsCompte.length][0]);
+    console.log(operationsCompte[operationsCompte.length][1]);
+    console.log(operationsCompte[operationsCompte.length][2]);
 
     // on reset le formulaire
     formulaire.reset();
