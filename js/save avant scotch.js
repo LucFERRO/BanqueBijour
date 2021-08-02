@@ -19,7 +19,15 @@ let solde = 0;
 let operator = "";
 let devise = "€";
 
+let creditTot = 0
+let debitTot = 0
+
 let totalAccount = document.getElementById('total');
+
+let trichouilleCredit=[,,,,,,,,,,,,,,,,,,]
+let trichouilleDebit=['','','','','','','','','','','','','','','','','','','','']
+let indexCredit = 0
+let indexDebit = 0
 
 let credit = document.getElementById('detailsCredit')
 let debit = document.getElementById('detailsDebit')
@@ -29,128 +37,114 @@ let totalDebit = document.getElementById('totalDebit')
 let li = document.createElement("li")
 let span = document.createElement("span")
 
-let liId = 1
-let liIdString = liId.toString()    //New id pour les li
-
-// for (var i = 0; i <= 20; i++) {           //Triche créer 21 variables li1, li2, ... li20 pour indexer les rajouts
-//   this["li"+i] = ""                      MARCHE PAS???????????????????? Marche dans le navig pourtant
-// }
-
-let Bigli = ["","","","","","","","","",""]                      //  TES MOURTS
+let audio = new Audio('/sound/stonks.mp3');
 
 // function calcul(operateur, libelle, montant) {}
 // // on execute la function
 // // calcul();
 
-function newLineCredit(a,b){
-  Bigli[liId-1] = li;
-  Bigli[liId-1].id = liId;
-  Bigli[liId-1].innerHTML = "<span class='intitule'>"+a+"</span><span class='montant txt-color-gazoil'>"+b+" "+devise+"</span>";
-  return Bigli[liId-1]
-}
 
-function newLineDebit(a,b){
-  Bigli[liId-1] = li;
-  Bigli[liId-1].id = liId;
-  Bigli[liId-1].innerHTML = "<span class='intitule'>"+a+"</span><span class='montant txt-color-red'>"+b+" "+devise+"</span>";
-  return Bigli[liId-1]
-}
 
 // send form, add operation
 const formulaire = document.getElementById("ajoutOperation");
 formulaire.addEventListener("submit", function (e) {
-    e.preventDefault();
-    // on récupère les valeurs des champs du formulaire
-    let operateur = document.getElementById('operation').value
-    let libelle = document.getElementById('intitule').value
-    let montant = parseFloat(document.getElementById('montant').value)
-    // console.log(result);
-    // console.log(textForm);
-    // console.log(montant);
-    // on stocke ces valeurs dans un array[]
-    let arrayOperations = [operateur,libelle,montant]
-    // on ajoute cet array dans notre array global operationsCompte
-    operationsCompte.push(arrayOperations);
-
-    // on execute la fonction pour actualiser
-
-    // if (operateur == '+'){
+  e.preventDefault();
+  // on récupère les valeurs des champs du formulaire
+  let operateur = document.getElementById('operation').value
+  let libelle = document.getElementById('intitule').value
+  let montant = parseFloat(document.getElementById('montant').value)
+  // console.log(result);
+  // console.log(textForm);
+  // console.log(montant);
+  // on stocke ces valeurs dans un array[]
+  let arrayOperations = [operateur,libelle,montant]
+  // on ajoute cet array dans notre array global operationsCompte
+  operationsCompte.push(arrayOperations);
+  
+  // on execute la fonction pour actualiser
+  
+  // if (operateur == '+'){
     //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
     //     credit.appendChild(li);
     // }
     // if (operateur == '-'){
-    //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
-    //     debit.appendChild(li);
-    // }
-
-    // if (operateur == '+'){
-    //     credit.appendChild(newLineCredit(libelle,montant));
-    // }
-    // if (operateur == '-'){
-    //     debit.appendChild(newLineDebit(libelle,montant));
-    //   }
-
-
-    if (operateur == '+'){
-      credit.appendChild(newLineCredit(libelle,montant));
-      credit.li;
-    } 
-    if (operateur == '-'){
-      debit.appendChild(newLineDebit(libelle,montant));
-      debit.li;
-    }
+      //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+      //     debit.appendChild(li);
+      // }
+      
+      // if (operateur == '+'){
+        //     credit.appendChild(newLineCredit(libelle,montant));
+        // }
+        // if (operateur == '-'){
+          //     debit.appendChild(newLineDebit(libelle,montant));
+          //   }
+          
 
 
+          
+          if (operateur == '+'){
+            trichouilleCredit[indexCredit] = montant;
+            console.log(typeof creditTot);
+            console.log(montant);
+            console.log(typeof parseFloat(montant));
+            console.log(montant/creditTot);
+            // trichouilleCredit.forEach(element => {
+            //   element = element/creditTot;
+            // });
+            let NewLi = document.createElement('li');
+            NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span><span class='percent-credit  txt-color-gazoil'>"+trichouilleCredit[indexCredit]+"%</span>";
+            credit.appendChild(NewLi);
+            indexCredit++;
+            audio.play()
+          } 
+          if (operateur == '-'){
+            trichouilleDebit[indexDebit] =  montant;
+            // trichouilleDebit.forEach(element => {
+            //   element = element/debitTot;
+            // });
+            let NewLi = document.createElement('li');
+            NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span><span class='percent txt-color-red'>"+trichouilleDebit[indexDebit]+"%</span>";
+            debit.appendChild(NewLi);
+            indexDebit++;
+          }
+          
+          
+          operationsCompte.forEach(element => {
+            if(element[0]=='+'){
+              creditTot = creditTot + element[2];
+            } else {
+              debitTot = debitTot + element[2];
+            }
+          });
+          
+          let AccountTot = creditTot-debitTot
+          
+          totalCredit.innerHTML = " "+creditTot+" "+devise;
+          totalDebit.innerHTML = " "+debitTot+" "+devise;
+          
+          totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
 
-    liId++;
 
+          
 
-
-    // if (operateur == '+'){
-    // }
-    // if (operateur == '-'){
-
-    // }
-
-    console.log(arrayOperations);
-    console.log(operationsCompte);
-    console.log(operationsCompte.length);
-    console.log(operationsCompte[0]);
-    console.log(operationsCompte[operationsCompte.length-1]);
-    console.log(operationsCompte[operationsCompte.length-1][0]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    let creditTot = 0
-    let debitTot = 0
-
-    operationsCompte.forEach(element => {
-      if(element[0]=='+'){
-        creditTot = creditTot + element[2];
-      } else {
-        debitTot = debitTot + element[2];
-      }
-  });
-
-  let AccountTot = creditTot-debitTot
-
-  totalCredit.innerHTML = " "+creditTot+" "+devise;
-  totalDebit.innerHTML = " "+debitTot+" "+devise;
-
-  totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
-
-    // on reset le formulaire
-    formulaire.reset();
-});
+          
+          // if (operateur == '+'){
+            // }
+            // if (operateur == '-'){
+              
+              // }
+              
+              // console.log(arrayOperations);
+              // console.log(operationsCompte);
+              // console.log(operationsCompte.length);
+              // console.log(operationsCompte[0]);
+              // console.log(operationsCompte[operationsCompte.length-1]);
+              // console.log(operationsCompte[operationsCompte.length-1][0]);
+              console.log(trichouilleCredit);
+              console.log(trichouilleDebit);
+              console.log(debitTot);
+              
+              // on reset le formulaire
+              formulaire.reset();
+            });
+            
