@@ -29,9 +29,16 @@ let totalDebit = document.getElementById('totalDebit')
 let li = document.createElement("li")
 let span = document.createElement("span")
 
-function calcul(operateur, libelle, montant) {}
-// on execute la function
-// calcul();
+let liId = 1
+let liIdString = liId.toString()    //New id pour les li
+
+
+
+// function calcul(operateur, libelle, montant) {}
+// // on execute la function
+// // calcul();
+
+
 
 // send form, add operation
 const formulaire = document.getElementById("ajoutOperation");
@@ -59,22 +66,31 @@ formulaire.addEventListener("submit", function (e) {
     //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
     //     debit.appendChild(li);
     // }
-    
+
+    // if (operateur == '+'){
+    //     credit.appendChild(newLineCredit(libelle,montant));
+    // }
+    // if (operateur == '-'){
+    //     debit.appendChild(newLineDebit(libelle,montant));
+    //   }
+
+
+
     if (operateur == '+'){
-        credit.appendChild(li).innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
-    }
+      let NewLi = document.createElement('li');
+      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
+      credit.appendChild(NewLi);
+    } 
     if (operateur == '-'){
-        debit.appendChild(li).innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+      let NewLi = document.createElement('li');
+      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+      debit.appendChild(NewLi);
     }
 
-    // var x = document.createElement("P");                        // Create a <p> node
-    // var t = document.createTextNode("This is a paragraph.");    // Create a text node
-    // x.appendChild(t);                                           // Append the text to <p>
-    // document.body.appendChild(x);                               // Append <p> to <body>
 
-    // document.body.appendChild(document.createElement("p").appendChild(document.createTextNode("test")));
 
-    // credit.appendChild(li.span.appendChild(document.createTextNode(libelle)));
+    liId++;
+
 
 
     // if (operateur == '+'){
@@ -83,14 +99,21 @@ formulaire.addEventListener("submit", function (e) {
 
     // }
 
-
-
     console.log(arrayOperations);
     console.log(operationsCompte);
     console.log(operationsCompte.length);
     console.log(operationsCompte[0]);
     console.log(operationsCompte[operationsCompte.length-1]);
     console.log(operationsCompte[operationsCompte.length-1][0]);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -113,8 +136,7 @@ formulaire.addEventListener("submit", function (e) {
   totalCredit.innerHTML = " "+creditTot+" "+devise;
   totalDebit.innerHTML = " "+debitTot+" "+devise;
 
-  totalAccount.innerHTML = " "+AccountTot+" "+devise;
-
+  totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
 
     // on reset le formulaire
     formulaire.reset();
