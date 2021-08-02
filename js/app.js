@@ -32,7 +32,7 @@ let span = document.createElement("span")
 let liId = 1
 let liIdString = liId.toString()    //New id pour les li
 
-
+let audio = new Audio('/sound/stonks.mp3');
 
 // function calcul(operateur, libelle, montant) {}
 // // on execute la function
@@ -80,6 +80,7 @@ formulaire.addEventListener("submit", function (e) {
       let NewLi = document.createElement('li');
       NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
       credit.appendChild(NewLi);
+      audio.play()
     } 
     if (operateur == '-'){
       let NewLi = document.createElement('li');
