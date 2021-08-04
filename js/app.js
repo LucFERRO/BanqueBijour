@@ -80,7 +80,7 @@ formulaire.addEventListener("submit", function (e) {
       let NewLi = document.createElement('li');
       NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
       credit.appendChild(NewLi);
-      audio.play()
+      // audio.play()     stonks
     } 
     if (operateur == '-'){
       let NewLi = document.createElement('li');
