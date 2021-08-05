@@ -26,6 +26,9 @@ let debit = document.getElementById('detailsDebit')
 let totalCredit = document.getElementById('totalCredit')
 let totalDebit = document.getElementById('totalDebit')
 
+let trichouilleDebit=['','','','','','','','','','','','','','','','','','','','']
+let indexDebit = 0
+
 let li = document.createElement("li")
 let span = document.createElement("span")
 
@@ -74,7 +77,16 @@ formulaire.addEventListener("submit", function (e) {
     //     debit.appendChild(newLineDebit(libelle,montant));
     //   }
 
-
+    let creditTot = 0
+    let debitTot = 0
+    
+    operationsCompte.forEach(element => {
+      if(element[0]=='+'){
+        creditTot = creditTot + element[2];
+      } else {
+        debitTot = debitTot + element[2];
+      }
+    });
 
     if (operateur == '+'){
       let NewLi = document.createElement('li');
@@ -83,9 +95,18 @@ formulaire.addEventListener("submit", function (e) {
       // audio.play()     stonks
     } 
     if (operateur == '-'){
+      trichouilleDebit[indexDebit] =  montant;
+      trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
       let NewLi = document.createElement('li');
-      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
+      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span><span class='percent txt-color-red'>"+trichouilleDebit[indexDebit]+"%</span>";
       debit.appendChild(NewLi);
+      console.log(trichouilleDebit);
+      trichouilleDebit.forEach(element => {
+        trichouilleDebit[trichouilleDebit.indexOf(element)] = element/debitTot;
+        // element = element/debitTot;
+      });
+      console.log(trichouilleDebit);
+      indexDebit++;
     }
 
 
@@ -100,12 +121,12 @@ formulaire.addEventListener("submit", function (e) {
 
     // }
 
-    console.log(arrayOperations);
-    console.log(operationsCompte);
-    console.log(operationsCompte.length);
-    console.log(operationsCompte[0]);
-    console.log(operationsCompte[operationsCompte.length-1]);
-    console.log(operationsCompte[operationsCompte.length-1][0]);
+    // console.log(arrayOperations);
+    // console.log(operationsCompte);
+    // console.log(operationsCompte.length);
+    // console.log(operationsCompte[0]);
+    // console.log(operationsCompte[operationsCompte.length-1]);
+    // console.log(operationsCompte[operationsCompte.length-1][0]);
 
 
 
@@ -121,16 +142,9 @@ formulaire.addEventListener("submit", function (e) {
 
 
 
-    let creditTot = 0
-    let debitTot = 0
 
-    operationsCompte.forEach(element => {
-      if(element[0]=='+'){
-        creditTot = creditTot + element[2];
-      } else {
-        debitTot = debitTot + element[2];
-      }
-  });
+
+
 
   let AccountTot = creditTot-debitTot
 
