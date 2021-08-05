@@ -1,14 +1,3 @@
-// import { user } from "./user.js";
-
-// console.dir(user);
-
-// console.log(
-//   `hello ${user.firstname}, i know your password :-) ${user.password}`
-// );
-
-// document.querySelector("#firstname").textContent = user.firstname;
-
-// on stocke toutes les opérations de compte dans un array[]
 let operationsCompte = [];
 operationsCompte.push(["+", "salaire", 1520]);
 operationsCompte.push(["-", "achat PS4", 499.99]);
@@ -30,17 +19,7 @@ let debit = document.getElementById('detailsDebit')
 let totalCredit = document.getElementById('totalCredit')
 let totalDebit = document.getElementById('totalDebit')
 
-let li = document.createElement("li")
-let span = document.createElement("span")
-
-let liId = 1
-let liIdString = liId.toString()    //New id pour les li
-
 let audio = new Audio('/sound/stonks.mp3');
-
-// function calcul(operateur, libelle, montant) {}
-// // on execute la function
-// // calcul();
 
 function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -54,32 +33,11 @@ formulaire.addEventListener("submit", function (e) {
     let operateur = document.getElementById('operation').value
     let libelle = document.getElementById('intitule').value
     let montant = parseFloat(document.getElementById('montant').value)
-    // console.log(result);
-    // console.log(textForm);
-    // console.log(montant);
     // on stocke ces valeurs dans un array[]
     let arrayOperations = [operateur,libelle,montant]
 
     // on ajoute cet array dans notre array global operationsCompte
     operationsCompte.push(arrayOperations);
-
-    // on execute la fonction pour actualiser
-
-    // if (operateur == '+'){
-    //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
-    //     credit.appendChild(li);
-    // }
-    // if (operateur == '-'){
-    //     li.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span>";
-    //     debit.appendChild(li);
-    // }
-
-    // if (operateur == '+'){
-    //     credit.appendChild(newLineCredit(libelle,montant));
-    // }
-    // if (operateur == '-'){
-    //     debit.appendChild(newLineDebit(libelle,montant));
-    //   }
 
     let creditTot = 0
     let debitTot = 0
@@ -96,75 +54,24 @@ formulaire.addEventListener("submit", function (e) {
       let NewLi = document.createElement('li');
       NewLi.innerHTML = "<span class='intitule'>"+capitalize(libelle)+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
       credit.appendChild(NewLi);
-      // audio.play()     stonks
+      audio.play();
     } 
     if (operateur == '-'){
       OperationsDebit.push([libelle, montant]);
       console.log(OperationsDebit);
-
-
-      // trichouilleDebit[indexDebit] =  montant;
-      // trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
-
       debit.innerHTML = '';
       OperationsDebit.forEach(element => {
         let NewLi = document.createElement('li');
         NewLi.innerHTML = "<span class='intitule'>"+capitalize(element[0])+"</span><span class='montant txt-color-red'>"+element[1]+" "+devise+"</span><span class='percent txt-color-red'>"+Math.round(element[1]/debitTot*10000)/100+"%</span>";
         debit.appendChild(NewLi);
       });
-
-
-      // trichouilleDebit.forEach(element => {
-      //   trichouilleDebit[trichouilleDebit.indexOf(element)] = element/debitTot;
-      //   // element = element/debitTot;
-      // });
-
     }
-
-
-
-    liId++;
-
-
-
-    // if (operateur == '+'){
-    // }
-    // if (operateur == '-'){
-
-    // }
-
-    // console.log(arrayOperations);
-    // console.log(operationsCompte);
-    // console.log(operationsCompte.length);
-    // console.log(operationsCompte[0]);
-    // console.log(operationsCompte[operationsCompte.length-1]);
-    // console.log(operationsCompte[operationsCompte.length-1][0]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   let AccountTot = creditTot-debitTot
 
   totalCredit.innerHTML = " "+creditTot+" "+devise;
   totalDebit.innerHTML = " "+debitTot+" "+devise;
 
   totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
-
     // on reset le formulaire
     formulaire.reset();
 });
