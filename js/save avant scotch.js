@@ -26,7 +26,6 @@ let debit = document.getElementById('detailsDebit')
 let totalCredit = document.getElementById('totalCredit')
 let totalDebit = document.getElementById('totalDebit')
 
-
 let trichouilleDebit=['','','','','','','','','','','','','','','','','','','','']
 let indexDebit = 0
 
@@ -42,16 +41,11 @@ let audio = new Audio('/sound/stonks.mp3');
 // // on execute la function
 // // calcul();
 
-let creditTot = 0
-let debitTot = 0
 
 
 // send form, add operation
 const formulaire = document.getElementById("ajoutOperation");
 formulaire.addEventListener("submit", function (e) {
-
-
-  
     e.preventDefault();
     // on récupère les valeurs des champs du formulaire
     let operateur = document.getElementById('operation').value
@@ -83,7 +77,16 @@ formulaire.addEventListener("submit", function (e) {
     //     debit.appendChild(newLineDebit(libelle,montant));
     //   }
 
-
+    let creditTot = 0
+    let debitTot = 0
+    
+    operationsCompte.forEach(element => {
+      if(element[0]=='+'){
+        creditTot = creditTot + element[2];
+      } else {
+        debitTot = debitTot + element[2];
+      }
+    });
 
     if (operateur == '+'){
       let NewLi = document.createElement('li');
@@ -93,13 +96,16 @@ formulaire.addEventListener("submit", function (e) {
     } 
     if (operateur == '-'){
       trichouilleDebit[indexDebit] =  montant;
-      // trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100)/100;
+      trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
       let NewLi = document.createElement('li');
       NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span><span class='percent txt-color-red'>"+trichouilleDebit[indexDebit]+"%</span>";
       debit.appendChild(NewLi);
-      // trichouilleDebit.forEach(element => {
-      //   element = element/debitTot;
-      // });
+      console.log(trichouilleDebit);
+      trichouilleDebit.forEach(element => {
+        trichouilleDebit[trichouilleDebit.indexOf(element)] = element/debitTot;
+        // element = element/debitTot;
+      });
+      console.log(trichouilleDebit);
       indexDebit++;
     }
 
@@ -115,12 +121,12 @@ formulaire.addEventListener("submit", function (e) {
 
     // }
 
-    console.log(arrayOperations);
-    console.log(operationsCompte);
-    console.log(operationsCompte.length);
-    console.log(operationsCompte[0]);
-    console.log(operationsCompte[operationsCompte.length-1]);
-    console.log(operationsCompte[operationsCompte.length-1][0]);
+    // console.log(arrayOperations);
+    // console.log(operationsCompte);
+    // console.log(operationsCompte.length);
+    // console.log(operationsCompte[0]);
+    // console.log(operationsCompte[operationsCompte.length-1]);
+    // console.log(operationsCompte[operationsCompte.length-1][0]);
 
 
 
@@ -138,13 +144,7 @@ formulaire.addEventListener("submit", function (e) {
 
 
 
-    operationsCompte.forEach(element => {
-      if(element[0]=='+'){
-        creditTot = creditTot + element[2];
-      } else {
-        debitTot = debitTot + element[2];
-      }
-  });
+
 
   let AccountTot = creditTot-debitTot
 
@@ -152,9 +152,6 @@ formulaire.addEventListener("submit", function (e) {
   totalDebit.innerHTML = " "+debitTot+" "+devise;
 
   totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
-
-  console.log(trichouilleDebit);
-  console.log(debitTot);
 
     // on reset le formulaire
     formulaire.reset();
