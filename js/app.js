@@ -72,6 +72,17 @@ formulaire.addEventListener("submit", function (e) {
   totalDebit.innerHTML = " "+debitTot+" "+devise;
 
   totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
+
+  if (AccountTot<0){
+    totalAccount.style.color = "red";
+    totalAccount.style.fontSize = "3.5rem"
+    totalAccount.innerHTML = "⚠ "+Math.round(AccountTot*100)/100+" "+devise;
+  } else {
+    totalAccount.style.color = "white";
+    totalAccount.style.fontSize = "2.5rem"
+  }
+
     // on reset le formulaire
     formulaire.reset();
 });
+

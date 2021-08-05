@@ -150,3 +150,9 @@ button:hover {
   max-width: 1260px;
   margin: auto;
 }
+
+#total {
+  color: white;
+  font-size: 2.5rem;
+  height: 75.2px;
+}
