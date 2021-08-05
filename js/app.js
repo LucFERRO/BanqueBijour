@@ -30,9 +30,6 @@ let debit = document.getElementById('detailsDebit')
 let totalCredit = document.getElementById('totalCredit')
 let totalDebit = document.getElementById('totalDebit')
 
-let trichouilleDebit=['','','','','','','','','','','','','','','','','','','','']
-let indexDebit = 0
-
 let li = document.createElement("li")
 let span = document.createElement("span")
 
@@ -45,7 +42,9 @@ let audio = new Audio('/sound/stonks.mp3');
 // // on execute la function
 // // calcul();
 
-
+function capitalize(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // send form, add operation
 const formulaire = document.getElementById("ajoutOperation");
@@ -95,25 +94,31 @@ formulaire.addEventListener("submit", function (e) {
 
     if (operateur == '+'){
       let NewLi = document.createElement('li');
-      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
+      NewLi.innerHTML = "<span class='intitule'>"+capitalize(libelle)+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
       credit.appendChild(NewLi);
       // audio.play()     stonks
     } 
     if (operateur == '-'){
       OperationsDebit.push([libelle, montant]);
       console.log(OperationsDebit);
-      trichouilleDebit[indexDebit] =  montant;
-      trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
-      let NewLi = document.createElement('li');
-      NewLi.innerHTML = "<span class='intitule'>"+libelle+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span><span class='percent txt-color-red'>"+trichouilleDebit[indexDebit]+"%</span>";
-      debit.appendChild(NewLi);
-      console.log(trichouilleDebit);
-      trichouilleDebit.forEach(element => {
-        trichouilleDebit[trichouilleDebit.indexOf(element)] = element/debitTot;
-        // element = element/debitTot;
+
+
+      // trichouilleDebit[indexDebit] =  montant;
+      // trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
+
+      debit.innerHTML = '';
+      OperationsDebit.forEach(element => {
+        let NewLi = document.createElement('li');
+        NewLi.innerHTML = "<span class='intitule'>"+capitalize(element[0])+"</span><span class='montant txt-color-red'>"+element[1]+" "+devise+"</span><span class='percent txt-color-red'>"+Math.round(element[1]/debitTot*10000)/100+"%</span>";
+        debit.appendChild(NewLi);
       });
-      console.log(trichouilleDebit);
-      indexDebit++;
+
+
+      // trichouilleDebit.forEach(element => {
+      //   trichouilleDebit[trichouilleDebit.indexOf(element)] = element/debitTot;
+      //   // element = element/debitTot;
+      // });
+
     }
 
 

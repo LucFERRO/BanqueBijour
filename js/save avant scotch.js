@@ -14,6 +14,10 @@ operationsCompte.push(["+", "salaire", 1520]);
 operationsCompte.push(["-", "achat PS4", 499.99]);
 operationsCompte.push(["-", "achat TV", 599]);
 
+let OperationsDebit = []
+OperationsDebit.push(["achat PS4", 499.99])
+OperationsDebit.push(["achat TV", 599])
+
 // on déclare nos variables
 let solde = 0;
 let operator = "";
@@ -56,6 +60,7 @@ formulaire.addEventListener("submit", function (e) {
     // console.log(montant);
     // on stocke ces valeurs dans un array[]
     let arrayOperations = [operateur,libelle,montant]
+
     // on ajoute cet array dans notre array global operationsCompte
     operationsCompte.push(arrayOperations);
 
@@ -95,6 +100,8 @@ formulaire.addEventListener("submit", function (e) {
       // audio.play()     stonks
     } 
     if (operateur == '-'){
+      OperationsDebit.push([libelle, montant]);
+      console.log(OperationsDebit);
       trichouilleDebit[indexDebit] =  montant;
       trichouilleDebit[indexDebit] = Math.round(trichouilleDebit[indexDebit]/debitTot*100);
       let NewLi = document.createElement('li');
