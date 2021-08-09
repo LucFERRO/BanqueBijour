@@ -54,7 +54,9 @@ formulaire.addEventListener("submit", function (e) {
       let NewLi = document.createElement('li');
       NewLi.innerHTML = "<span class='intitule'>"+capitalize(libelle)+"</span><span class='montant txt-color-gazoil'>"+montant+" "+devise+"</span>";
       credit.appendChild(NewLi);
-      audio.play();
+      // if (montant>1000){                           /* STONKS */
+      //   audio.play();
+      // }
     } 
     if (operateur == '-'){
       OperationsDebit.push([libelle, montant]);
