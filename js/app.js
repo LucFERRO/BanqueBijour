@@ -59,19 +59,22 @@ formulaire.addEventListener("submit", function (e) {
       // }
     } 
     if (operateur == '-'){
-      OperationsDebit.push([libelle, montant]);
-      console.log(OperationsDebit);
-      debit.innerHTML = '';
-      OperationsDebit.forEach(element => {
-        let NewLi = document.createElement('li');
-        NewLi.innerHTML = "<span class='intitule'>"+capitalize(element[0])+"</span><span class='montant txt-color-red'>"+element[1]+" "+devise+"</span><span class='percent txt-color-red'>"+Math.round(element[1]/debitTot*10000)/100+"%</span>";
-        debit.appendChild(NewLi);
-      });
+      // OperationsDebit.push([libelle, montant]);
+      // console.log(OperationsDebit);
+      // debit.innerHTML = '';
+      // OperationsDebit.forEach(element => {
+      //   let NewLi = document.createElement('li');
+      //   NewLi.innerHTML = "<span class='intitule'>"+capitalize(element[0])+"</span><span class='montant txt-color-red'>"+element[1]+" "+devise+"</span><span class='percent txt-color-red'>"+Math.round(element[1]/debitTot*10000)/100+"%</span>";
+      //   debit.appendChild(NewLi);
+      // });
+      let NewLi = document.createElement('li');
+      NewLi.innerHTML = "<span class='intitule'>"+capitalize(libelle)+"</span><span class='montant txt-color-red'>"+montant+" "+devise+"</span><span class='percent txt-color-red'>"+(montant/debitTot*100).toFixed(2)+"%</span>";
+      debit.appendChild(NewLi);
     }
   let AccountTot = creditTot-debitTot
 
   totalCredit.innerHTML = " "+creditTot+" "+devise;
-  totalDebit.innerHTML = " "+debitTot+" "+devise;
+  totalDebit.innerHTML = " "+debitTot+" "+devise+"<span class='percent txt-color-red'>"+(debitTot/creditTot*100).toFixed(2)+"%</span>";
 
   totalAccount.innerHTML = " "+Math.round(AccountTot*100)/100+" "+devise;       // Round AccountTot
 
